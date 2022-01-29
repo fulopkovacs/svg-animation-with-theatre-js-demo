@@ -1,52 +1,88 @@
 import "./App.css";
+import React, { useState } from "react";
+import { initialState } from "./data";
+import Path from "./Path";
+import PathControlNodes from "./PathControlNodes";
+import SvgImage from "./SvgImage";
+import { getSVGCoordinates } from "./utils";
 
 function App() {
+  const [selectedNode, setSelectedNode] = useState<{
+    name: string;
+    id: number;
+    controlType: "" | "1" | "2";
+  } | null>(null);
+
+  const [offset, setOffset] = useState<{ x: number; y: number }>({
+    x: 0,
+    y: 0,
+  });
+
+  const [leftArmD, setLeftArmD] = useState(initialState.leftArm);
+  const svgRef = React.createRef<SVGSVGElement>();
+
+  function handleMouseDown(
+    event: React.MouseEvent,
+    name: string,
+    nodeId: number,
+    controlType: "" | "1" | "2",
+    nodeCoord: { x: number; y: number }
+  ) {
+    const clickCoordinates = getSVGCoordinates(
+      event,
+      svgRef.current as SVGSVGElement
+    );
+    setSelectedNode({ name: name, id: nodeId, controlType });
+    setOffset({
+      x: nodeCoord.x - clickCoordinates.x,
+      y: nodeCoord.y - clickCoordinates.y,
+    });
+  }
+
+  function handleMouseMove(event: React.MouseEvent) {
+    if (selectedNode) {
+      const { x, y } = getSVGCoordinates(
+        event,
+        svgRef.current as SVGSVGElement
+      );
+
+      if (selectedNode.name === "left-arm") {
+        let updatedD = [...leftArmD];
+        //TODO: Handle these false positive warnings
+        // @ts-ignore
+        updatedD[selectedNode.id]["x" + selectedNode.controlType] =
+          x + offset.x;
+        //TODO: Handle these false positive warnings
+        // @ts-ignore
+        updatedD[selectedNode.id]["y" + selectedNode.controlType] =
+          y + offset.y;
+        setLeftArmD(updatedD);
+      }
+    }
+  }
+
+  function handleMouseUp(event: React.MouseEvent) {
+    setSelectedNode(null);
+    setOffset({ x: 0, y: 0 });
+  }
+
   return (
     <div className="App">
-      <svg
-        width="100%"
-        height="100%"
-        viewBox="0 0 391 547"
-        version="1.1"
-        xmlns="http://www.w3.org/2000/svg"
-        className="bot"
-      >
-        <g id="Bot-2">
-          <path
-            id="Neck"
-            d="M208.85,258.245C208.85,258.245 213.966,277.733 205.928,302.51"
-          />
-          <path
-            id="Body"
-            d="M95.281,308.864C112.687,300.838 169.126,302.51 202.858,302.51C220.096,302.51 319.017,302.321 329.38,312.688C337.053,320.365 320.504,381.294 317.48,390.546C311.127,409.982 297.088,466.256 290.779,485.609C286.01,500.234 280.842,522.496 271.233,531.391C260.099,541.698 228.117,538.859 214.162,538.859C159.927,538.859 156.571,536.671 136.383,486.398C123.468,454.238 110.662,423.958 102.394,390.884C97.121,369.792 84.242,313.954 95.281,308.864Z"
-          />
-          <g id="Arm_left">
-            <path d="M94.108,352.531C94.108,352.531 39.836,359.259 21.715,328.095C11.365,310.295 7.835,272.094 7.835,272.094" />
-          </g>
-          <g id="Arm_right">
-            <path d="M328.453,345.899C328.453,345.899 360.168,347.637 377.884,382.662C387.816,402.3 381.639,445.326 381.639,445.326" />
-          </g>
-          <g id="Head">
-            <path d="M110.994,68.4C90.94,81.474 75.069,215.28 85.908,235.147C93.681,249.394 172.618,255.898 215.61,258.697C258.329,261.478 328.589,266.666 343.861,251.942C356.046,240.194 359.715,146.826 349.225,117.985C341.794,97.553 130.235,55.857 110.994,68.4Z" />
-            <path
-              id="Eye_left"
-              d="M128.018,141.438C128.018,141.438 142.032,134.41 148.95,119.133C153.057,133.887 165.818,149.837 165.818,149.837"
+      <SvgImage
+        handleMouseUp={handleMouseUp}
+        handleMouseMove={handleMouseMove}
+        ref={svgRef}
+        armLeft={{
+          path: <Path nodes={leftArmD} />,
+          control: (
+            <PathControlNodes
+              nodes={leftArmD}
+              handleMouseDown={handleMouseDown}
+              name="left-arm"
             />
-            <path
-              id="Eye_right"
-              d="M237.181,169.469C237.181,169.469 257.205,160.528 261.411,143.751C264.14,159.491 283.894,180.172 283.894,180.172"
-            />
-            <path
-              id="Mouth"
-              d="M173.278,190.391L188.841,215.106L212.883,198.529"
-            />
-            <path d="M108.909,69.541C112.574,66.668 103.407,27.881 92.252,21.039" />
-            <circle cx="92.252" cy="21.039" r="17.127" />
-            <circle cx="365.944" cy="74.382" r="17.127" />
-            <path d="M343.751,111.887C348.645,91.141 354.951,88.364 365.944,74.382" />
-          </g>
-        </g>
-      </svg>
+          ),
+        }}
+      />
     </div>
   );
 }

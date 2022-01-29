@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 397 547" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;">
+    <g id="Bot-2">
+        <path id="Neck" d="M212.85,258.245C212.85,258.245 217.966,277.733 209.928,302.51" style="fill:none;stroke:#000;stroke-width:14px;"/>
+        <path id="Body" d="M99.281,308.864C116.687,300.838 173.126,302.51 206.858,302.51C224.096,302.51 323.017,302.321 333.38,312.688C341.053,320.365 324.504,381.294 321.48,390.546C315.127,409.982 301.088,466.256 294.779,485.609C290.01,500.234 284.842,522.496 275.233,531.391C264.099,541.698 232.117,538.859 218.162,538.859C163.927,538.859 160.571,536.671 140.383,486.398C127.468,454.238 114.662,423.958 106.394,390.884C101.121,369.792 88.242,313.954 99.281,308.864Z" style="fill:none;stroke:#000;stroke-width:14px;"/>
+        <g id="Arm_left">
+            <path d="M98.108,352.531C26.337,361.408 -4.508,336.327 11.835,272.094" style="fill:none;stroke:#000;stroke-width:14px;"/>
+        </g>
+        <g id="Arm_right">
+            <path d="M332.453,345.899C381.734,360.687 398.544,394.364 385.639,445.326" style="fill:none;stroke:#000;stroke-width:14px;"/>
+        </g>
+        <g id="Head">
+            <path d="M114.994,68.4C94.94,81.474 79.069,215.28 89.908,235.147C97.681,249.394 176.618,255.898 219.61,258.697C262.329,261.478 332.589,266.666 347.861,251.942C360.046,240.194 363.715,146.826 353.225,117.985C345.794,97.553 134.235,55.857 114.994,68.4Z" style="fill:none;stroke:#000;stroke-width:14px;"/>
+            <path id="Eye_left" d="M132.018,141.438C132.018,141.438 146.032,134.41 152.95,119.133C157.057,133.887 169.818,149.837 169.818,149.837" style="fill:none;stroke:#000;stroke-width:14px;"/>
+            <path id="Eye_right" d="M241.181,169.469C241.181,169.469 261.205,160.528 265.411,143.751C268.14,159.491 287.894,180.172 287.894,180.172" style="fill:none;stroke:#000;stroke-width:14px;"/>
+            <path id="Mouth" d="M177.278,190.391L192.841,215.106L216.883,198.529" style="fill:none;stroke:#000;stroke-width:14px;"/>
+            <path d="M112.909,69.541C116.574,66.668 107.407,27.881 96.252,21.039" style="fill:none;stroke:#000;stroke-width:14px;"/>
+            <circle cx="96.252" cy="21.039" r="17.127"/>
+            <circle cx="369.944" cy="74.382" r="17.127"/>
+            <path d="M347.751,111.887C352.645,91.141 358.951,88.364 369.944,74.382" style="fill:none;stroke:#000;stroke-width:14px;"/>
+        </g>
+    </g>
+</svg>

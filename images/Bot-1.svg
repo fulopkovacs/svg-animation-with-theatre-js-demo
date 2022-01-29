@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 473 547" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;">
+    <g id="Bot-1">
+        <path id="Neck" d="M251.084,258.245C251.084,258.245 256.201,277.733 248.163,302.51" style="fill:none;stroke:#000;stroke-width:14px;"/>
+        <path id="Body" d="M137.515,308.864C154.921,300.838 211.36,302.51 245.093,302.51C262.33,302.51 361.252,302.321 371.614,312.688C379.288,320.365 362.739,381.294 359.715,390.546C353.361,409.982 339.322,466.256 333.013,485.609C328.245,500.234 323.076,522.496 313.468,531.391C302.333,541.698 270.351,538.859 256.396,538.859C202.161,538.859 198.806,536.671 178.617,486.398C165.702,454.238 152.897,423.958 144.628,390.884C139.355,369.792 126.476,313.954 137.515,308.864Z" style="fill:none;stroke:#000;stroke-width:14px;"/>
+        <g id="Arm_left">
+            <path d="M136.343,352.531C72.659,372.013 32.956,306.633 50.069,272.094" style="fill:none;stroke:#000;stroke-width:14px;"/>
+            <path d="M7.014,240.341C7.014,240.341 14.343,282.058 51.555,271.704C85.004,262.397 73.729,226.609 73.729,226.609" style="fill:none;stroke:#000;stroke-width:14px;"/>
+        </g>
+        <g id="Arm_right">
+            <path d="M370.687,345.899C412.848,353.86 432.363,385.16 423.873,445.326" style="fill:none;stroke:#000;stroke-width:14px;"/>
+            <path d="M465.071,474.03C465.071,474.03 453.595,433.258 417.61,447.292C385.262,459.906 400.069,494.383 400.069,494.383" style="fill:none;stroke:#000;stroke-width:14px;"/>
+        </g>
+        <g id="Head">
+            <path d="M157.897,68.4C137.842,81.474 121.971,215.28 132.811,235.147C140.584,249.394 219.521,255.898 262.513,258.697C305.232,261.478 375.491,266.666 390.763,251.942C402.948,240.194 406.617,146.826 396.127,117.985C388.696,97.553 177.138,55.857 157.897,68.4Z" style="fill:none;stroke:#000;stroke-width:14px;"/>
+            <path id="Eye_left" d="M174.92,141.438C174.92,141.438 188.935,134.41 195.853,119.133C199.96,133.887 212.72,149.837 212.72,149.837" style="fill:none;stroke:#000;stroke-width:14px;"/>
+            <path id="Eye_right" d="M284.083,169.469C284.083,169.469 304.107,160.528 308.313,143.751C311.042,159.491 330.796,180.172 330.796,180.172" style="fill:none;stroke:#000;stroke-width:14px;"/>
+            <path id="Mouth" d="M220.181,190.391L235.743,215.106L259.786,198.529" style="fill:none;stroke:#000;stroke-width:14px;"/>
+            <path d="M155.812,69.541C159.476,66.668 150.31,27.881 139.154,21.039" style="fill:none;stroke:#000;stroke-width:14px;"/>
+            <circle cx="139.154" cy="21.039" r="17.127"/>
+            <circle cx="412.846" cy="74.382" r="17.127"/>
+            <path d="M390.653,111.887C395.547,91.141 401.854,88.364 412.846,74.382" style="fill:none;stroke:#000;stroke-width:14px;"/>
+        </g>
+    </g>
+</svg>

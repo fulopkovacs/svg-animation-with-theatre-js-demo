@@ -1,3 +1,9 @@
+:root {
+  --control-node-color: #f570ff;
+  /* --control-node-color: #3d7eff; */
+  /* --control-node-color: #3da8ff; */
+}
+
 .App {
   position: fixed;
   left: 0;
@@ -25,4 +31,20 @@ path {
   fill: none;
   stroke: #000;
   stroke-width: 14px;
+}
+
+line.control {
+  stroke: var(--control-node-color);
+  stroke-width: 2px;
+}
+
+circle.control {
+  fill: var(--control-node-color);
+  stroke: var(--control-node-color);
+  stroke-width: 0px;
+  transition: stroke-width ease-in-out 100ms;
+}
+
+circle.control:hover {
+  stroke-width: 20px;
 }
