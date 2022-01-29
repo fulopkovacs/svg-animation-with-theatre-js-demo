@@ -1,0 +1,28 @@
+.App {
+  position: fixed;
+  left: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+svg {
+  max-height: 70vh;
+}
+
+svg.bot {
+  fill-rule: evenodd;
+  clip-rule: evenodd;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-miterlimit: 1.5;
+}
+
+path {
+  fill: none;
+  stroke: #000;
+  stroke-width: 14px;
+}
