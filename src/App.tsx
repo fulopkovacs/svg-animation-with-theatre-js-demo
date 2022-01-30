@@ -37,6 +37,7 @@ function App() {
   const [leftArmD, setLeftArmD] = useState(initialState.leftArm);
   const [rightArmD, setRightArmD] = useState(initialState.rightArm);
   const [neckD, setNeckD] = useState(initialState.neck);
+  const [showControls, setShowControls] = useState(initialState.showControls);
 
   const [headTransformData, setHeadTransformData] = useState(
     initialState.transformData
@@ -81,10 +82,7 @@ function App() {
       const nodesObj = convertNodesArrayToObj(data);
       const initialObj = botSheet.object(name, nodesObj);
       initialObj.onValuesChange((nodesObjData) => {
-        const newOpacity = nodesObjData.controls;
-        delete nodesObjData.controls;
         const nodesArray = convertNodesObjToArray(nodesObjData);
-        console.log(newOpacity);
         setFn(nodesArray);
       });
 
@@ -123,6 +121,15 @@ function App() {
       );
       transformObj.onValuesChange((newValues) => {
         setFn(newValues);
+      });
+
+      // Controls visibility
+      const showControlsObj = botSheet.object(
+        "show controls",
+        initialState.showControls
+      );
+      showControlsObj.onValuesChange((newValues) => {
+        setShowControls(newValues);
       });
     }
   }, []);
@@ -252,6 +259,7 @@ function App() {
               nodes={leftArmD}
               handleMouseDown={handleMouseDown}
               name="left-arm"
+              visible={showControls.leftArm}
             />
           ),
         }}
@@ -262,6 +270,7 @@ function App() {
               nodes={rightArmD}
               handleMouseDown={handleMouseDown}
               name="right-arm"
+              visible={showControls.rightArm}
             />
           ),
         }}
@@ -272,6 +281,7 @@ function App() {
               nodes={neckD}
               handleMouseDown={handleMouseDown}
               name="neck"
+              visible={showControls.neck}
             />
           ),
         }}

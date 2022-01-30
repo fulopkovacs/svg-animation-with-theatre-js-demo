@@ -54,17 +54,10 @@ circle.control:hover {
   cursor: default;
 }
 
-/* #Bot-2 {
+.control.visible {
   opacity: 1;
-  transition: opacity ease-in-out 150ms;
 }
 
-#Bot-2:hover {
-  opacity: 0.6;
-  cursor: move;
+.control.hidden {
+  opacity: 0;
 }
-
-#Head:hover {
-  cursor: move;
-  opacity: 0.6;
-} */

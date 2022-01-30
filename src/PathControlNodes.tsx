@@ -10,6 +10,7 @@ function PathControlNodes(props: {
     controlType: "" | "1" | "2",
     nodeCoord: { x: number; y: number }
   ) => void;
+  visible: boolean;
   name: string;
 }) {
   let controlNodes: JSX.Element[] = [];
@@ -69,7 +70,7 @@ function PathControlNodes(props: {
   });
 
   return (
-    <g>
+    <g className={`control ${props.visible ? "visible" : "hidden"}`}>
       {lines}
       {controlNodes}
       <Path className="control" nodes={props.nodes} />
