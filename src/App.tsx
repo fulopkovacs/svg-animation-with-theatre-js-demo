@@ -11,7 +11,7 @@ import {
 } from "./utils";
 import { getProject, ISheetObject } from "@theatre/core";
 import studio from "@theatre/studio";
-import { NodeC, NodeM /* PathDataObject */ } from ".";
+import { NodeC, NodeM } from ".";
 
 function App() {
   const [selectedNode, setSelectedNode] = useState<{
@@ -28,25 +28,41 @@ function App() {
   const [leftArmObject, setLeftArmObject] =
     useState<ISheetObject<{ [index: string]: number | string }>>();
 
+  const [rightArmObject, setRightArmObject] =
+    useState<ISheetObject<{ [index: string]: number | string }>>();
+
   const [leftArmD, setLeftArmD] = useState(initialState.leftArm);
+  const [rightArmD, setRightArmD] = useState(initialState.rightArm);
+
   const svgRef = React.createRef<SVGSVGElement>();
 
   useEffect(() => {
     studio.initialize();
     const proj = getProject("Bot animation");
     const botSheet = proj.sheet("Bot");
-    const leftArmNodesObject = convertNodesArrayToObj(initialState.leftArm);
-    const initialLeftArmObject = botSheet.object(
-      "left arm",
-      leftArmNodesObject
-    );
+    for (let { name, data, setFn, setObjFn } of [
+      {
+        name: "left arm",
+        data: initialState.leftArm,
+        setFn: setLeftArmD,
+        setObjFn: setLeftArmObject,
+      },
+      {
+        name: "right arm",
+        data: initialState.rightArm,
+        setFn: setRightArmD,
+        setObjFn: setRightArmObject,
+      },
+    ]) {
+      const nodesObj = convertNodesArrayToObj(data);
+      const initialObj = botSheet.object(name, nodesObj);
+      initialObj.onValuesChange((nodesObjData) => {
+        const nodesArray = convertNodesObjToArray(nodesObjData);
+        setFn(nodesArray);
+      });
 
-    initialLeftArmObject.onValuesChange((nodesObj) => {
-      const nodesArray = convertNodesObjToArray(nodesObj);
-      setLeftArmD(nodesArray);
-    });
-
-    setLeftArmObject(initialLeftArmObject);
+      setObjFn(initialObj);
+    }
   }, []);
 
   function handleMouseDown(
@@ -74,21 +90,20 @@ function App() {
         svgRef.current as SVGSVGElement
       );
 
+      let pathAttributeD: Array<NodeC | NodeM> | null = null;
+      let selectedObject: ISheetObject | null = null;
+
       if (selectedNode.name === "left-arm" && leftArmObject) {
-        /* let updatedD = [...leftArmD];
-        //TODO: Handle these false positive warnings
-        // @ts-ignore
-        updatedD[selectedNode.id]["x" + selectedNode.controlType] =
-          x + offset.x;
-        //TODO: Handle these false positive warnings
-        // @ts-ignore
-        updatedD[selectedNode.id]["y" + selectedNode.controlType] =
-          y + offset.y;
-        // setLeftArmD(updatedD);
-        ); */
-        /* const updatedDObj: {
-          [index: string]: { [index: string]: number };
-        } = {}; */
+        pathAttributeD = leftArmD;
+        selectedObject = leftArmObject;
+      }
+
+      if (selectedNode.name === "right-arm" && rightArmObject) {
+        pathAttributeD = rightArmD;
+        selectedObject = rightArmObject;
+      }
+
+      if (pathAttributeD) {
         const objId = `node_${selectedNode.id}`;
         const updatedValues = {
           ["x" + selectedNode.controlType]: x + offset.x,
@@ -97,50 +112,55 @@ function App() {
 
         const difference = {
           x:
-            leftArmD[selectedNode.id]["x" + selectedNode.controlType] -
+            pathAttributeD[selectedNode.id]["x" + selectedNode.controlType] -
             updatedValues["x" + selectedNode.controlType],
           y:
-            leftArmD[selectedNode.id]["y" + selectedNode.controlType] -
+            pathAttributeD[selectedNode.id]["y" + selectedNode.controlType] -
             updatedValues["y" + selectedNode.controlType],
         };
 
-        let secondaryNodeId;
-        let secondaryControlType;
-        let updatedSecondaryNodeValues;
+        let secondaryNodeId: number | null = null;
+        let secondaryControlType: string | null = null;
+        let updatedSecondaryNodeValues: { [index: string]: number };
 
         if (selectedNode.controlType === "") {
           // Move the control node with the node on the path.
 
-          if (leftArmD[selectedNode.id]["type"] === "M") {
-            secondaryNodeId = [selectedNode.id + 1];
+          if (pathAttributeD[selectedNode.id]["type"] === "M") {
+            secondaryNodeId = selectedNode.id + 1;
             secondaryControlType = "1";
           }
-          if (leftArmD[selectedNode.id]["type"] === "C") {
-            secondaryNodeId = [selectedNode.id];
+          if (pathAttributeD[selectedNode.id]["type"] === "C") {
+            secondaryNodeId = selectedNode.id;
             secondaryControlType = "2";
           }
 
-          updatedSecondaryNodeValues = {
-            ["x" + secondaryControlType]:
-              leftArmD[secondaryNodeId]["x" + secondaryControlType] -
-              difference.x,
-            ["y" + secondaryControlType]:
-              leftArmD[secondaryNodeId]["y" + secondaryControlType] -
-              difference.y,
-          };
+          if (secondaryNodeId && secondaryControlType) {
+            updatedSecondaryNodeValues = {
+              ["x" + secondaryControlType]:
+                pathAttributeD[secondaryNodeId]["x" + secondaryControlType] -
+                difference.x,
+              ["y" + secondaryControlType]:
+                pathAttributeD[secondaryNodeId]["y" + secondaryControlType] -
+                difference.y,
+            };
+          }
         }
         studio.transaction(({ set }) => {
           // const updatedDObj = convertNodesArrayToObj(updatedD);
-          set(leftArmObject.props[objId], updatedValues);
-          if (updatedSecondaryNodeValues) {
-            set(
-              leftArmObject.props[`node_${secondaryNodeId}`],
-              updatedSecondaryNodeValues
-            );
+          if (selectedObject) {
+            set(selectedObject.props[objId], updatedValues);
+            if (
+              updatedSecondaryNodeValues &&
+              secondaryNodeId &&
+              secondaryControlType
+            ) {
+              set(
+                selectedObject.props[`node_${secondaryNodeId}`],
+                updatedSecondaryNodeValues
+              );
+            }
           }
-          /* for (let [key, value] of updatedDObj) {
-            set();
-          } */
         });
       }
     }
@@ -164,6 +184,16 @@ function App() {
               nodes={leftArmD}
               handleMouseDown={handleMouseDown}
               name="left-arm"
+            />
+          ),
+        }}
+        armRight={{
+          path: <Path nodes={rightArmD} />,
+          control: (
+            <PathControlNodes
+              nodes={rightArmD}
+              handleMouseDown={handleMouseDown}
+              name="right-arm"
             />
           ),
         }}

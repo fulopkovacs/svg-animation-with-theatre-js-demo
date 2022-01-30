@@ -23,6 +23,7 @@ interface NodeM extends NodeBase {
 
 interface SvgImageProps {
   armLeft: { path: ReactNode; control: ReactNode };
+  armRight: { path: ReactNode; control: ReactNode };
   handleMouseUp: (e: MouseEvent) => void;
   handleMouseMove: (e: MouseEvent) => void;
 }

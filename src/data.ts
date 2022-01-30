@@ -19,6 +19,26 @@ const leftArm: Array<NodeC | NodeM> = [
   },
 ];
 
+const rightArm: Array<NodeC | NodeM> = [
+  {
+    type: "M",
+    x: 332.453,
+    y: 345.899,
+    id: 0,
+  },
+  {
+    type: "C",
+    x1: 381.734,
+    y1: 360.687,
+    x2: 398.544,
+    y2: 394.364,
+    x: 385.639,
+    y: 445.326,
+    id: 1,
+  },
+];
+
 export const initialState = {
   leftArm,
+  rightArm,
 };
