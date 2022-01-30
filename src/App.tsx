@@ -9,7 +9,7 @@ import {
   convertNodesObjToArray,
   getSVGCoordinates,
 } from "./utils";
-import { getProject, ISheetObject } from "@theatre/core";
+import { getProject, ISheetObject, types as t } from "@theatre/core";
 import studio from "@theatre/studio";
 import { NodeC, NodeM } from ".";
 
@@ -31,8 +31,24 @@ function App() {
   const [rightArmObject, setRightArmObject] =
     useState<ISheetObject<{ [index: string]: number | string }>>();
 
+  const [neckObject, setNeckObject] =
+    useState<ISheetObject<{ [index: string]: number | string }>>();
+
   const [leftArmD, setLeftArmD] = useState(initialState.leftArm);
   const [rightArmD, setRightArmD] = useState(initialState.rightArm);
+  const [neckD, setNeckD] = useState(initialState.neck);
+
+  const [headTransformData, setHeadTransformData] = useState(
+    initialState.transformData
+  );
+
+  const [botTransformData, setBotTransformData] = useState(
+    initialState.transformData
+  );
+
+  const [bodyTransformData, setBodyTransformData] = useState(
+    initialState.transformData
+  );
 
   const svgRef = React.createRef<SVGSVGElement>();
 
@@ -40,6 +56,8 @@ function App() {
     studio.initialize();
     const proj = getProject("Bot animation");
     const botSheet = proj.sheet("Bot");
+
+    // Paths
     for (let { name, data, setFn, setObjFn } of [
       {
         name: "left arm",
@@ -53,15 +71,59 @@ function App() {
         setFn: setRightArmD,
         setObjFn: setRightArmObject,
       },
+      {
+        name: "neck",
+        data: initialState.neck,
+        setFn: setNeckD,
+        setObjFn: setNeckObject,
+      },
     ]) {
       const nodesObj = convertNodesArrayToObj(data);
       const initialObj = botSheet.object(name, nodesObj);
       initialObj.onValuesChange((nodesObjData) => {
+        const newOpacity = nodesObjData.controls;
+        delete nodesObjData.controls;
         const nodesArray = convertNodesObjToArray(nodesObjData);
+        console.log(newOpacity);
         setFn(nodesArray);
       });
 
       setObjFn(initialObj);
+    }
+
+    // Transforms
+    for (let { data, name, setFn } of [
+      { name: "head", data: headTransformData, setFn: setHeadTransformData },
+      {
+        name: "bot character",
+        data: botTransformData,
+        setFn: setBotTransformData,
+      },
+      {
+        name: "body",
+        data: bodyTransformData,
+        setFn: setBodyTransformData,
+      },
+    ]) {
+      const transformOriginOpts = {
+        x: t.stringLiteral(data.transformOrigin.x, {
+          left: "left",
+          center: "center",
+          right: "right",
+        }),
+        y: t.stringLiteral(data.transformOrigin.y, {
+          top: "top",
+          center: "center",
+          bottom: "bottom",
+        }),
+      };
+      const transformObj = botSheet.object(
+        name,
+        Object.assign(data, { transformOrigin: transformOriginOpts })
+      );
+      transformObj.onValuesChange((newValues) => {
+        setFn(newValues);
+      });
     }
   }, []);
 
@@ -101,6 +163,11 @@ function App() {
       if (selectedNode.name === "right-arm" && rightArmObject) {
         pathAttributeD = rightArmD;
         selectedObject = rightArmObject;
+      }
+
+      if (selectedNode.name === "neck" && neckObject) {
+        pathAttributeD = neckD;
+        selectedObject = neckObject;
       }
 
       if (pathAttributeD) {
@@ -174,6 +241,7 @@ function App() {
   return (
     <div className="App">
       <SvgImage
+        viewBox={[0, 0, 400, 700]}
         handleMouseUp={handleMouseUp}
         handleMouseMove={handleMouseMove}
         ref={svgRef}
@@ -197,6 +265,19 @@ function App() {
             />
           ),
         }}
+        neck={{
+          path: <Path nodes={neckD} />,
+          control: (
+            <PathControlNodes
+              nodes={neckD}
+              handleMouseDown={handleMouseDown}
+              name="neck"
+            />
+          ),
+        }}
+        head={headTransformData}
+        botCharacter={botTransformData}
+        body={bodyTransformData}
       />
     </div>
   );

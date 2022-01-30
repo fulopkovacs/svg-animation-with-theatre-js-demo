@@ -1,4 +1,5 @@
 import { NodeC, NodeM } from ".";
+import Path from "./Path";
 
 function PathControlNodes(props: {
   nodes: Array<NodeC | NodeM>;
@@ -71,6 +72,7 @@ function PathControlNodes(props: {
     <g>
       {lines}
       {controlNodes}
+      <Path className="control" nodes={props.nodes} />
     </g>
   );
 }

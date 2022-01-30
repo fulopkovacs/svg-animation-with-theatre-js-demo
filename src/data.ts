@@ -1,4 +1,4 @@
-import { NodeC, NodeM } from ".";
+import { NodeC, NodeM, TransformData } from ".";
 
 const leftArm: Array<NodeC | NodeM> = [
   {
@@ -38,7 +38,41 @@ const rightArm: Array<NodeC | NodeM> = [
   },
 ];
 
+const neck: Array<NodeC | NodeM> = [
+  {
+    type: "M",
+    x: 212.85,
+    y: 258.245,
+    id: 0,
+  },
+  {
+    type: "C",
+    x1: 212.85,
+    y1: 258.245,
+    x2: 217.966,
+    y2: 277.733,
+    x: 209.928,
+    y: 302.51,
+    id: 1,
+  },
+];
+
+const showControls = {
+  leftArm: true,
+  rightArm: true,
+  neck: true,
+};
+
+const transformData: TransformData = {
+  rotation: 0,
+  translate: { x: 0, y: 0 },
+  transformOrigin: { x: "center", y: "center" },
+};
+
 export const initialState = {
   leftArm,
   rightArm,
+  neck,
+  transformData,
+  showControls,
 };

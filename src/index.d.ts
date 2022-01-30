@@ -21,13 +21,23 @@ interface NodeM extends NodeBase {
   type: `M`;
 }
 
+interface TransformData {
+  rotation: number;
+  translate: { x: number; y: number };
+  transformOrigin: {
+    x: "left" | "center" | "right";
+    y: "top" | "center" | "bottom";
+  };
+}
+
 interface SvgImageProps {
+  viewBox: number[];
   armLeft: { path: ReactNode; control: ReactNode };
   armRight: { path: ReactNode; control: ReactNode };
+  neck: { path: ReactNode; control: ReactNode };
+  head: TransformData;
+  botCharacter: TransformData;
+  body: TransformData;
   handleMouseUp: (e: MouseEvent) => void;
   handleMouseMove: (e: MouseEvent) => void;
 }
-
-/* type PathDataObject = ISheetObject<{
-  [index in string]: NodeC | NodeM;
-}>; */

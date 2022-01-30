@@ -35,9 +35,11 @@ path {
   stroke-width: 14px;
 }
 
-line.control {
+line.control,
+path.control {
   stroke: var(--control-node-color);
   stroke-width: 2px;
+  fill: none;
 }
 
 circle.control {
@@ -49,4 +51,20 @@ circle.control {
 
 circle.control:hover {
   stroke-width: 20px;
+  cursor: default;
 }
+
+/* #Bot-2 {
+  opacity: 1;
+  transition: opacity ease-in-out 150ms;
+}
+
+#Bot-2:hover {
+  opacity: 0.6;
+  cursor: move;
+}
+
+#Head:hover {
+  cursor: move;
+  opacity: 0.6;
+} */
