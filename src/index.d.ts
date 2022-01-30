@@ -1,3 +1,4 @@
+import { ISheetObject } from "@theatre/core";
 import { MouseEvent, ReactNode } from "react";
 
 interface NodeBase {
@@ -25,3 +26,7 @@ interface SvgImageProps {
   handleMouseUp: (e: MouseEvent) => void;
   handleMouseMove: (e: MouseEvent) => void;
 }
+
+/* type PathDataObject = ISheetObject<{
+  [index in string]: NodeC | NodeM;
+}>; */

@@ -13,6 +13,8 @@
   justify-content: center;
   height: 100%;
   width: 100%;
+  /* background: #a8ffb0; */
+  background: #f0f0f0;
 }
 
 svg {
