@@ -24,3 +24,21 @@ export function getSVGCoordinates(
     y: (event.clientY - ctm.f) / ctm.d,
   };
 }
+
+export function convertNodesArrayToObj(nodesArray: Array<NodeC | NodeM>) {
+  let nodesObj: { [index: string]: NodeC | NodeM } = {};
+  for (let i = 0; i < nodesArray.length; i++) {
+    nodesObj[`node_${i}`] = nodesArray[i];
+  }
+  return nodesObj;
+}
+
+export function convertNodesObjToArray(nodesObj: {
+  [index: string]: NodeC | NodeM;
+}) {
+  let nodesArray: Array<NodeC | NodeM> = [];
+  for (let [_, value] of Object.entries(nodesObj)) {
+    nodesArray.push(value);
+  }
+  return nodesArray;
+}

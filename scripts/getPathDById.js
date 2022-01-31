@@ -18,8 +18,10 @@ getPathDById("some-id")
 
 */
 
-function getPathDById(id) {
-  const path = document.querySelector("#" + id).querySelector("path");
+function getPathDById(id, isGroup) {
+  const path = isGroup
+    ? document.querySelector("#" + id).querySelector("path")
+    : document.querySelector("#" + id);
   const dString = path.getAttribute("d");
   const dArray = dString
     .replaceAll(",", " ")
@@ -27,7 +29,7 @@ function getPathDById(id) {
     .trim()
     .split(/\s+/);
   let nodesArray = [];
-  let nodeId = 1;
+  let nodeId = 0;
   for (let i = 0; i < dArray.length; i++) {
     const e = dArray[i];
     if (["C", "M"].includes(e)) {
@@ -42,7 +44,7 @@ function getPathDById(id) {
       }
       node.x = Number(dArray[++i]);
       node.y = Number(dArray[++i]);
-      node.id = ++nodeId;
+      node.id = nodeId++;
       nodesArray.push(node);
     }
   }
@@ -50,6 +52,7 @@ function getPathDById(id) {
 }
 
 // An example:
-d = getPathDById("Arm_left");
+d = getPathDById("Arm_left", true);
+// d = getPathDById("Eye_left", false);
 
 d;

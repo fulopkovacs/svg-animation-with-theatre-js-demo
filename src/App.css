@@ -1,5 +1,6 @@
 :root {
   --control-node-color: #f570ff;
+  --primary-color: #000;
   /* --control-node-color: #3d7eff; */
   /* --control-node-color: #3da8ff; */
 }
@@ -13,6 +14,8 @@
   justify-content: center;
   height: 100%;
   width: 100%;
+  /* background: #a8ffb0; */
+  background: #f0f0f0;
 }
 
 svg {
@@ -29,13 +32,15 @@ svg.bot {
 
 path {
   fill: none;
-  stroke: #000;
+  stroke: var(--primary-color);
   stroke-width: 14px;
 }
 
-line.control {
+line.control,
+path.control {
   stroke: var(--control-node-color);
   stroke-width: 2px;
+  fill: none;
 }
 
 circle.control {
@@ -47,4 +52,17 @@ circle.control {
 
 circle.control:hover {
   stroke-width: 20px;
+  cursor: default;
+}
+
+.control.visible {
+  opacity: 1;
+}
+
+.control.hidden {
+  opacity: 0;
+}
+
+ellipse#Shadow {
+  fill: var(--primary-color);
 }
