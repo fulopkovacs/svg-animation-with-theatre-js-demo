@@ -40,8 +40,8 @@
             }
           },
           "show controls": {
-            "leftArm": false,
-            "rightArm": false,
+            "leftArm": true,
+            "rightArm": true,
             "neck": false,
             "leftEye": false,
             "rightEye": false
@@ -1343,6 +1343,7 @@
   },
   "definitionVersion": "0.4.0",
   "revisionHistory": [
+    "bZJLgggNpBIAUqZm",
     "wc4yFA30uI54qsfQ",
     "D0kKKrxmR9PM9WtY",
     "HV_BPZB_sYuV-H_h"
