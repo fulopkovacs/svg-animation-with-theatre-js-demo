@@ -34,9 +34,17 @@ function App() {
   const [neckObject, setNeckObject] =
     useState<ISheetObject<{ [index: string]: number | string }>>();
 
+  const [leftEyeObject, setLeftEyeObject] =
+    useState<ISheetObject<{ [index: string]: number | string }>>();
+
+  const [rightEyeObject, setRightEyeObject] =
+    useState<ISheetObject<{ [index: string]: number | string }>>();
+
   const [leftArmD, setLeftArmD] = useState(initialState.leftArm);
   const [rightArmD, setRightArmD] = useState(initialState.rightArm);
   const [neckD, setNeckD] = useState(initialState.neck);
+  const [leftEyeD, setLeftEyeD] = useState(initialState.leftEye);
+  const [rightEyeD, setRightEyeD] = useState(initialState.rightEye);
   const [showControls, setShowControls] = useState(initialState.showControls);
 
   const [headTransformData, setHeadTransformData] = useState(
@@ -77,6 +85,18 @@ function App() {
         data: initialState.neck,
         setFn: setNeckD,
         setObjFn: setNeckObject,
+      },
+      {
+        name: "left eye",
+        data: initialState.leftEye,
+        setFn: setLeftEyeD,
+        setObjFn: setLeftEyeObject,
+      },
+      {
+        name: "right eye",
+        data: initialState.rightEye,
+        setFn: setRightEyeD,
+        setObjFn: setRightEyeObject,
       },
     ]) {
       const nodesObj = convertNodesArrayToObj(data);
@@ -177,6 +197,16 @@ function App() {
         selectedObject = neckObject;
       }
 
+      if (selectedNode.name === "left-eye" && leftEyeObject) {
+        pathAttributeD = leftEyeD;
+        selectedObject = leftEyeObject;
+      }
+
+      if (selectedNode.name === "right-eye" && rightEyeObject) {
+        pathAttributeD = rightEyeD;
+        selectedObject = rightEyeObject;
+      }
+
       if (pathAttributeD) {
         const objId = `node_${selectedNode.id}`;
         const updatedValues = {
@@ -271,6 +301,28 @@ function App() {
               handleMouseDown={handleMouseDown}
               name="right-arm"
               visible={showControls.rightArm}
+            />
+          ),
+        }}
+        eyeLeft={{
+          path: <Path nodes={leftEyeD} />,
+          control: (
+            <PathControlNodes
+              nodes={leftEyeD}
+              handleMouseDown={handleMouseDown}
+              name="left-eye"
+              visible={showControls.leftEye}
+            />
+          ),
+        }}
+        eyeRight={{
+          path: <Path nodes={rightEyeD} />,
+          control: (
+            <PathControlNodes
+              nodes={rightEyeD}
+              handleMouseDown={handleMouseDown}
+              name="right-eye"
+              visible={showControls.rightEye}
             />
           ),
         }}

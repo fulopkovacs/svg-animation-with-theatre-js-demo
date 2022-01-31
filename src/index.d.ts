@@ -34,6 +34,8 @@ interface SvgImageProps {
   viewBox: number[];
   armLeft: { path: ReactNode; control: ReactNode };
   armRight: { path: ReactNode; control: ReactNode };
+  eyeLeft: { path: ReactNode; control: ReactNode };
+  eyeRight: { path: ReactNode; control: ReactNode };
   neck: { path: ReactNode; control: ReactNode };
   head: TransformData;
   botCharacter: TransformData;

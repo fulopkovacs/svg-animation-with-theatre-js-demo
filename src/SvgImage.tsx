@@ -39,14 +39,14 @@ const SvgImage = React.forwardRef<SVGSVGElement, SvgImageProps>(
           transform={`rotate(${props.head.rotation}) translate(${props.head.translate.x}, ${props.head.translate.y})`}
         >
           <path d="M110.994,68.4C90.94,81.474 75.069,215.28 85.908,235.147C93.681,249.394 172.618,255.898 215.61,258.697C258.329,261.478 328.589,266.666 343.861,251.942C356.046,240.194 359.715,146.826 349.225,117.985C341.794,97.553 130.235,55.857 110.994,68.4Z" />
-          <path
-            id="Eye_left"
-            d="M128.018,141.438C128.018,141.438 142.032,134.41 148.95,119.133C153.057,133.887 165.818,149.837 165.818,149.837"
-          />
-          <path
-            id="Eye_right"
-            d="M237.181,169.469C237.181,169.469 257.205,160.528 261.411,143.751C264.14,159.491 283.894,180.172 283.894,180.172"
-          />
+          <g id="Eye_right">
+            {props.eyeRight.path}
+            {props.eyeRight.control}
+          </g>
+          <g id="Eye_left">
+            {props.eyeLeft.path}
+            {props.eyeLeft.control}
+          </g>
           <path
             id="Mouth"
             d="M173.278,190.391L188.841,215.106L212.883,198.529"
