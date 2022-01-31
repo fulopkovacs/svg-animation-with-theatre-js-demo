@@ -1,5 +1,6 @@
 :root {
   --control-node-color: #f570ff;
+  --primary-color: #000;
   /* --control-node-color: #3d7eff; */
   /* --control-node-color: #3da8ff; */
 }
@@ -31,7 +32,7 @@ svg.bot {
 
 path {
   fill: none;
-  stroke: #000;
+  stroke: var(--primary-color);
   stroke-width: 14px;
 }
 
@@ -60,4 +61,8 @@ circle.control:hover {
 
 .control.hidden {
   opacity: 0;
+}
+
+ellipse#Shadow {
+  fill: var(--primary-color);
 }

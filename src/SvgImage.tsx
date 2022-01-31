@@ -61,6 +61,7 @@ const SvgImage = React.forwardRef<SVGSVGElement, SvgImageProps>(
           {props.neck.control}
         </g>
       </g>
+      <ellipse id="Shadow" cx={props.shadow.cx} cy={props.shadow.cy} rx={props.shadow.rx} ry={props.shadow.ry} />
     </svg>
   )
 );

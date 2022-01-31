@@ -30,6 +30,13 @@ interface TransformData {
   };
 }
 
+interface Shadow extends {
+  cx: number;
+  cy: number;
+  rx: number;
+  ry: number;
+}
+
 interface SvgImageProps {
   viewBox: number[];
   armLeft: { path: ReactNode; control: ReactNode };
@@ -40,6 +47,7 @@ interface SvgImageProps {
   head: TransformData;
   botCharacter: TransformData;
   body: TransformData;
+  shadow: Shadow;
   handleMouseUp: (e: MouseEvent) => void;
   handleMouseMove: (e: MouseEvent) => void;
 }

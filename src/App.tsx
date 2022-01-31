@@ -40,6 +40,9 @@ function App() {
   const [rightEyeObject, setRightEyeObject] =
     useState<ISheetObject<{ [index: string]: number | string }>>();
 
+  const [shadowObject, setShadowObject] =
+    useState<ISheetObject<{ [index: string]: number | string }>>();
+
   const [leftArmD, setLeftArmD] = useState(initialState.leftArm);
   const [rightArmD, setRightArmD] = useState(initialState.rightArm);
   const [neckD, setNeckD] = useState(initialState.neck);
@@ -58,6 +61,8 @@ function App() {
   const [bodyTransformData, setBodyTransformData] = useState(
     initialState.transformData
   );
+
+  const [shadowData, setShadowData] = useState(initialState.shadow)
 
   const svgRef = React.createRef<SVGSVGElement>();
 
@@ -152,6 +157,13 @@ function App() {
         setShowControls(newValues);
       });
     }
+
+    // Shadow
+    const shadowTheatreObject = botSheet.object("shadow", shadowData)
+    shadowTheatreObject.onValuesChange((newValues) => {
+      setShadowData(newValues)
+    })
+
   }, []);
 
   function handleMouseDown(
@@ -340,6 +352,7 @@ function App() {
         head={headTransformData}
         botCharacter={botTransformData}
         body={bodyTransformData}
+        shadow={shadowData}
       />
     </div>
   );

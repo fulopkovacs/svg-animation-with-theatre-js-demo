@@ -1,4 +1,4 @@
-import { NodeC, NodeM, TransformData } from ".";
+import { NodeC, NodeM, Shadow, TransformData } from ".";
 
 const leftArm: Array<NodeC | NodeM> = [
   {
@@ -128,6 +128,13 @@ const transformData: TransformData = {
   transformOrigin: { x: "center", y: "center" },
 };
 
+const shadow: Shadow = {
+  cx: 210,
+  cy: 620,
+  rx: 100,
+  ry: 50,
+};
+
 export const initialState = {
   leftArm,
   rightArm,
@@ -135,5 +142,6 @@ export const initialState = {
   leftEye,
   rightEye,
   transformData,
+  shadow,
   showControls,
 };
