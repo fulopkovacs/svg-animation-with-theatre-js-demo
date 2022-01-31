@@ -128,6 +128,8 @@ const transformData: TransformData = {
   transformOrigin: { x: "center", y: "center" },
 };
 
+const viewBox = [0, 0, 400, 900];
+
 const shadow: Shadow = {
   cx: 210,
   cy: 620,
@@ -144,4 +146,5 @@ export const initialState = {
   transformData,
   shadow,
   showControls,
+  viewBox,
 };

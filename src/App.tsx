@@ -12,6 +12,7 @@ import {
 import { getProject, ISheetObject, types as t } from "@theatre/core";
 import studio from "@theatre/studio";
 import { NodeC, NodeM } from ".";
+import state from '../states/state-3.json'
 
 function App() {
   const [selectedNode, setSelectedNode] = useState<{
@@ -68,7 +69,7 @@ function App() {
 
   useEffect(() => {
     studio.initialize();
-    const proj = getProject("Bot animation");
+    const proj = getProject("Bot animation", {state});
     const botSheet = proj.sheet("Bot");
 
     // Paths
@@ -163,6 +164,9 @@ function App() {
     shadowTheatreObject.onValuesChange((newValues) => {
       setShadowData(newValues)
     })
+
+    // Start the animation
+    proj.ready.then( () => botSheet.sequence.play({iterationCount: Infinity}));
 
   }, []);
 
@@ -290,7 +294,7 @@ function App() {
   return (
     <div className="App">
       <SvgImage
-        viewBox={[0, 0, 400, 700]}
+        viewBox={initialState.viewBox}
         handleMouseUp={handleMouseUp}
         handleMouseMove={handleMouseMove}
         ref={svgRef}

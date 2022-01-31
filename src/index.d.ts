@@ -30,7 +30,7 @@ interface TransformData {
   };
 }
 
-interface Shadow extends {
+interface Shadow {
   cx: number;
   cy: number;
   rx: number;
